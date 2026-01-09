@@ -255,14 +255,24 @@ main {
     padding-left: 2rem;
 }
 
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+}
+
 #page-content-wrapper {
     min-width: 100vw;
 }
 
 @media (min-width: 768px) {
     #sidebar-wrapper {
-        margin-left: 0;
+        margin-left: 0; /* Sidebar HARUS 0 agar muncul terus di laptop */
     }
+    
+    /* Jika tombol diklik di laptop, sidebar baru bersembunyi */
+    #wrapper.toggled #sidebar-wrapper {
+        margin-left: -15rem;
+    }
+    
     #page-content-wrapper {
         min-width: 0;
         width: 100%;

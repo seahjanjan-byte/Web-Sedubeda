@@ -65,7 +65,7 @@ include 'includes/header.php';
         <div class="row">
             <?php
             // Tetap ambil 3 berita terbaru
-            $queryBerita = mysqli_query($koneksi, "SELECT * FROM berita ORDER BY tanggal DESC LIMIT 3");
+            $queryBerita = mysqli_query($koneksi, "SELECT * FROM berita WHERE status = 'tampil' ORDER BY tanggal DESC LIMIT 3");
             
             if (mysqli_num_rows($queryBerita) > 0) {
                 while ($b = mysqli_fetch_assoc($queryBerita)) {

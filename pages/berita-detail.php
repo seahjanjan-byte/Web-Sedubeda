@@ -16,6 +16,20 @@ if (isset($_GET['slug'])) {
     header("Location: berita.php");
     exit;
 }
+
+// Logika di pages/berita-detail.php
+if (isset($_GET['slug'])) {
+    $slug = mysqli_real_escape_string($koneksi, $_GET['slug']);
+    // Tambahkan pengecekan status = 'tampil'
+    $query = mysqli_query($koneksi, "SELECT * FROM berita WHERE slug = '$slug' AND status = 'tampil'");
+    $data = mysqli_fetch_assoc($query);
+
+    // Jika berita tidak ditemukan atau statusnya arsip
+    if (!$data) {
+        echo "<script>alert('Berita tidak tersedia atau telah diarsipkan.'); window.location='berita.php';</script>";
+        exit;
+    }
+}
 ?>
 
 <div class="container py-5">
@@ -46,10 +60,6 @@ if (isset($_GET['slug'])) {
         </div>
     </div>
 </div>
-
-<footer class="py-4 bg-dark text-white text-center">
-    <small>&copy; 2026 SDN Dukuhbenda 02</small>
-</footer>
 <?php 
 // Mengambil footer secara dinamis
 include_once dirname(__DIR__) . '/includes/footer.php'; 
