@@ -19,8 +19,8 @@
             <i class="fas fa-images me-2"></i> Galeri Foto
         </a>
         <hr class="bg-light mx-3 opacity-25">
-        <a class="list-group-item list-group-item-action py-3 text-danger bg-transparent border-0 fw-bold" href="logout.php">
+        <a class="list-group-item list-group-item-action py-3 text-danger bg-transparent border-0 fw-bold" href="<?= $base_url; ?>admin/logout.php">
             <i class="fas fa-sign-out-alt me-2"></i> Keluar
         </a>
     </div>
-</div>  
+</div>
