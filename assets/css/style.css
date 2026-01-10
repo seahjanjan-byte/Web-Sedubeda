@@ -320,3 +320,10 @@ main {
         font-size: 0.9rem;
     }
 }
+
+/* Mengatur ukuran logo di navbar agar konsisten */
+.navbar-brand img {
+    max-height: 50px; /* Batasi tinggi maksimal */
+    width: auto;      /* Biarkan lebar menyesuaikan proporsi */
+    margin-right: 10px;
+}

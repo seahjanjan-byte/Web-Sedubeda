@@ -9,3 +9,7 @@
         <img src="<?= $base_url; ?>assets/img/<?= $d['gambar']; ?>" class="img-fluid rounded" alt="Bagan Struktur">
     </div>
 </div>
+<?php 
+// Tambahkan baris ini di akhir file
+include_once dirname(__DIR__) . '/includes/footer.php'; 
+?>

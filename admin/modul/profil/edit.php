@@ -2,14 +2,12 @@
 session_start();
 if (!isset($_SESSION['login'])) { header("Location: ../../login.php"); exit; }
 
-// Pastikan include config berada di paling atas agar $koneksi dikenal
 include_once '../../../config/config.php'; 
 
 $jenis = $_GET['jenis'];
 $query = mysqli_query($koneksi, "SELECT * FROM profil WHERE jenis = '$jenis'");
 $d = mysqli_fetch_assoc($query);
 
-// Jika data tidak ditemukan
 if (!$d) { echo "<script>window.location='index.php';</script>"; exit; }
 ?>
 <!DOCTYPE html>
@@ -43,22 +41,101 @@ if (!$d) { echo "<script>window.location='index.php';</script>"; exit; }
                                     <label class="form-label d-block fw-bold mb-3">Bagan Struktur Saat Ini</label>
                                     <img src="../../../assets/img/<?= $d['gambar']; ?>" class="img-fluid rounded border p-2 mb-3" style="max-height: 300px;">
                                     <input type="file" name="gambar" class="form-control" accept="image/*" required>
-                                    <small class="text-muted fst-italic">*Pilih file gambar baru untuk mengganti bagan.</small>
                                 </div>
+
+                            <?php elseif ($jenis == 'visi_misi') : ?>
+                                <?php 
+                                    $data_vm = json_decode($d['konten'], true);
+                                    $visi_array = $data_vm['visi'] ?? [];
+                                    $misi_array = $data_vm['misi'] ?? [];
+                                    if (!is_array($visi_array)) $visi_array = (empty($visi_array) ? [] : [$visi_array]);
+                                    if (!is_array($misi_array)) $misi_array = (empty($misi_array) ? [] : [$misi_array]);
+                                ?>
+                                
+                                <div class="mb-5">
+                                    <label class="form-label fw-bold d-block text-primary">VISI SEKOLAH</label>
+                                    <table class="table table-bordered align-middle">
+                                        <thead class="table-light text-center">
+                                            <tr>
+                                                <th width="5%">No</th>
+                                                <th>Poin Visi</th>
+                                                <th width="8%">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="containerVisi">
+                                            <?php if (empty($visi_array)) : ?>
+                                                <tr>
+                                                    <td class="text-center fw-bold row-num-visi">1</td>
+                                                    <td><input type="text" name="visi[]" class="form-control" placeholder="Tulis poin visi..." required></td>
+                                                    <td class="text-center">-</td>
+                                                </tr>
+                                            <?php else : ?>
+                                                <?php foreach ($visi_array as $index => $v) : ?>
+                                                    <tr>
+                                                        <td class="text-center fw-bold row-num-visi"><?= $index + 1; ?></td>
+                                                        <td><input type="text" name="visi[]" class="form-control" value="<?= htmlspecialchars($v); ?>" required></td>
+                                                        <td class="text-center">
+                                                            <?php if ($index > 0) : ?>
+                                                                <button type="button" class="btn btn-outline-danger btn-sm" onclick="hapusBaris(this, 'row-num-visi')"><i class="fas fa-trash"></i></button>
+                                                            <?php endif; ?>
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            <?php endif; ?>
+                                        </tbody>
+                                    </table>
+                                    <button type="button" class="btn btn-primary btn-sm rounded-pill px-3" onclick="tambahBaris('containerVisi', 'visi[]', 'row-num-visi')">
+                                        <i class="fas fa-plus me-1"></i> Tambah Poin Visi
+                                    </button>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold d-block text-primary">MISI SEKOLAH</label>
+                                    <table class="table table-bordered align-middle">
+                                        <thead class="table-light text-center">
+                                            <tr>
+                                                <th width="5%">No</th>
+                                                <th>Poin Misi</th>
+                                                <th width="8%">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="containerMisi">
+                                            <?php if (empty($misi_array)) : ?>
+                                                <tr>
+                                                    <td class="text-center fw-bold row-num-misi">1</td>
+                                                    <td><input type="text" name="misi[]" class="form-control" placeholder="Tulis poin misi..." required></td>
+                                                    <td class="text-center">-</td>
+                                                </tr>
+                                            <?php else : ?>
+                                                <?php foreach ($misi_array as $index => $m) : ?>
+                                                    <tr>
+                                                        <td class="text-center fw-bold row-num-misi"><?= $index + 1; ?></td>
+                                                        <td><input type="text" name="misi[]" class="form-control" value="<?= htmlspecialchars($m); ?>" required></td>
+                                                        <td class="text-center">
+                                                            <?php if ($index > 0) : ?>
+                                                                <button type="button" class="btn btn-outline-danger btn-sm" onclick="hapusBaris(this, 'row-num-misi')"><i class="fas fa-trash"></i></button>
+                                                            <?php endif; ?>
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            <?php endif; ?>
+                                        </tbody>
+                                    </table>
+                                    <button type="button" class="btn btn-primary btn-sm rounded-pill px-3" onclick="tambahBaris('containerMisi', 'misi[]', 'row-num-misi')">
+                                        <i class="fas fa-plus me-1"></i> Tambah Poin Misi
+                                    </button>
+                                </div>
+
                             <?php else : ?>
                                 <div class="mb-3">
-                                    <label class="form-label fw-bold">Konten Teks</label>
+                                    <label class="form-label fw-bold">Konten Teks Sejarah</label>
                                     <textarea name="konten" class="form-control" rows="12" required><?= $d['konten']; ?></textarea>
                                 </div>
                             <?php endif; ?>
 
                             <div class="border-top pt-3 mt-4 text-end">
-                                <a href="index.php" class="btn btn-secondary px-4 me-2 rounded-pill">
-                                    <i class="fas fa-times me-1"></i> Batal
-                                </a>
-                                <button type="submit" class="btn btn-primary px-4 rounded-pill shadow-sm">
-                                    <i class="fas fa-save me-1"></i> Simpan Perubahan
-                                </button>
+                                <a href="index.php" class="btn btn-secondary px-4 me-2 rounded-pill">Batal</a>
+                                <button type="submit" class="btn btn-success px-4 rounded-pill shadow-sm">Simpan Perubahan</button>
                             </div>
                         </form>
                     </div>
@@ -66,10 +143,46 @@ if (!$d) { echo "<script>window.location='index.php';</script>"; exit; }
             </div>
         </div>
     </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.querySelector('#sidebarToggle').addEventListener('click', () => {
-            document.getElementById('wrapper').classList.toggle('toggled');
+        window.addEventListener('DOMContentLoaded', event => {
+            const sidebarToggle = document.body.querySelector('#sidebarToggle');
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', event => {
+                    event.preventDefault();
+                    document.getElementById('wrapper').classList.toggle('toggled');
+                });
+            }
         });
+
+        // Fungsi Universal Tambah Baris
+        function tambahBaris(containerId, inputName, labelClass) {
+            const container = document.getElementById(containerId);
+            const rowCount = container.rows.length;
+            const row = container.insertRow();
+            
+            row.innerHTML = `
+                <td class="text-center fw-bold ${labelClass}">${rowCount + 1}</td>
+                <td><input type="text" name="${inputName}" class="form-control" required></td>
+                <td class="text-center">
+                    <button type="button" class="btn btn-outline-danger btn-sm" onclick="hapusBaris(this, '${labelClass}')"><i class="fas fa-trash"></i></button>
+                </td>
+            `;
+        }
+
+        // Fungsi Universal Hapus Baris
+        function hapusBaris(btn, labelClass) {
+            const row = btn.parentNode.parentNode;
+            const container = row.parentNode;
+            container.removeChild(row);
+            
+            // Re-index nomor urut
+            const rows = container.querySelectorAll('.' + labelClass);
+            rows.forEach((cell, index) => {
+                cell.innerHTML = index + 1;
+            });
+        }
     </script>
 </body>
 </html>

@@ -31,9 +31,11 @@
         <a class="list-group-item list-group-item-action py-3 text-white bg-transparent border-0" href="<?= $base_url; ?>admin/modul/slider/index.php">
             <i class="fas fa-images me-2"></i> Kelola Slider
         </a>
-
         <a class="list-group-item list-group-item-action py-3 text-white bg-transparent border-0" href="<?= $base_url; ?>admin/modul/sambutan/index.php">
             <i class="fas fa-comment-dots me-2"></i> Sambutan Kepsek
+        </a>
+        <a class="list-group-item list-group-item-action py-3 text-white bg-transparent border-0" href="<?= $base_url; ?>admin/modul/pesan/index.php">
+            <i class="fas fa-envelope me-2"></i> Pesan Masuk
         </a>
         <hr class="bg-light mx-3 opacity-25">
         <a class="list-group-item list-group-item-action py-3 text-danger bg-transparent border-0 fw-bold" href="<?= $base_url; ?>admin/logout.php">

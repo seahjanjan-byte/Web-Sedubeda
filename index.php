@@ -1,5 +1,5 @@
-<?php 
-include 'includes/header.php'; 
+<?php
+include 'includes/header.php';
 ?>
 
 <div id="heroSlider" class="carousel slide shadow-sm" data-bs-ride="carousel">
@@ -9,11 +9,11 @@ include 'includes/header.php';
         $aktif = "active";
         if (mysqli_num_rows($querySlider) > 0) {
             while ($row = mysqli_fetch_assoc($querySlider)) {
-                ?>
+        ?>
                 <div class="carousel-item <?= $aktif; ?>" data-bs-interval="4000">
-                    <div class="hero-overlay"></div> 
+                    <div class="hero-overlay"></div>
                     <img src="<?= $base_url; ?>assets/img/slider/<?= $row['gambar']; ?>" class="d-block w-100 hero-img" alt="<?= $row['judul']; ?>">
-                    
+
                     <div class="carousel-caption d-md-block text-start pb-5">
                         <div class="container">
                             <h1 class="display-4 fw-bold mb-2 animate__animated animate__fadeInUp"><?= $row['judul']; ?></h1>
@@ -22,7 +22,7 @@ include 'includes/header.php';
                         </div>
                     </div>
                 </div>
-                <?php
+        <?php
                 $aktif = ""; // Hanya slide pertama yang pakai class 'active'
             }
         } else {
@@ -69,32 +69,32 @@ include 'includes/header.php';
         <div class="row">
             <?php
             $queryBerita = mysqli_query($koneksi, "SELECT * FROM berita WHERE status = 'tampil' ORDER BY tanggal DESC LIMIT 3");
-            
+
             if (mysqli_num_rows($queryBerita) > 0) {
                 while ($b = mysqli_fetch_assoc($queryBerita)) {
                     $cuplikan = substr(strip_tags($b['isi']), 0, 100) . "...";
             ?>
-                <div class="col-md-4 mb-4" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <img src="<?= $base_url; ?>assets/img/berita/<?= $b['gambar']; ?>" class="card-img-top" alt="<?= $b['judul']; ?>" style="height: 200px; object-fit: cover;">
-                        <div class="card-body">
-                            <small class="text-muted"><i class="fas fa-calendar-alt me-1"></i> <?= date('d M Y', strtotime($b['tanggal'])); ?></small>
-                            <h5 class="card-title fw-bold mt-2"><?= $b['judul']; ?></h5>
-                            <p class="card-text text-secondary"><?= $cuplikan; ?></p>
-                        </div>
-                        <div class="card-footer bg-white border-0 pb-3">
-                            <a href="<?= $base_url; ?>pages/detail-berita.php?slug=<?= $b['slug']; ?>" class="btn btn-outline-primary btn-sm w-100">Baca Selengkapnya</a>
+                    <div class="col-md-4 mb-4" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <img src="<?= $base_url; ?>assets/img/berita/<?= $b['gambar']; ?>" class="card-img-top" alt="<?= $b['judul']; ?>" style="height: 200px; object-fit: cover;">
+                            <div class="card-body">
+                                <small class="text-muted"><i class="fas fa-calendar-alt me-1"></i> <?= date('d M Y', strtotime($b['tanggal'])); ?></small>
+                                <h5 class="card-title fw-bold mt-2"><?= $b['judul']; ?></h5>
+                                <p class="card-text text-secondary"><?= $cuplikan; ?></p>
+                            </div>
+                            <div class="card-footer bg-white border-0 pb-3">
+                                <a href="<?= $base_url; ?>pages/detail-berita.php?slug=<?= $b['slug']; ?>" class="btn btn-outline-primary btn-sm w-100">Baca Selengkapnya</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            <?php 
-                } 
+            <?php
+                }
             } else {
                 echo "<div class='col-12 text-center'><p class='text-muted'>Belum ada berita terbaru.</p></div>";
             }
             ?>
         </div>
-        
+
         <div class="text-center mt-4" data-aos="fade-up">
             <a href="<?= $base_url; ?>pages/berita.php" class="btn btn-primary px-5 shadow-sm">Lihat Semua Berita</a>
         </div>
@@ -122,6 +122,10 @@ include 'includes/header.php';
                             <input type="email" name="email" class="form-control" placeholder="nama@email.com" required>
                         </div>
                         <div class="mb-3">
+                            <label class="form-label">Nomor Telepon/WA</label>
+                            <input type="text" name="telepon" class="form-control" placeholder="08xxxxxxxxxx" required>
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label">Subjek</label>
                             <input type="text" name="subjek" class="form-control" placeholder="Contoh: Tanya PPDB" required>
                         </div>
@@ -138,13 +142,13 @@ include 'includes/header.php';
                 <div class="card border-0 shadow-sm p-4 h-100">
                     <h4 class="fw-bold mb-3">Informasi Sekolah</h4>
                     <p class="text-muted mb-4">
-                        <i class="fas fa-map-marker-alt text-primary me-2"></i> 
+                        <i class="fas fa-map-marker-alt text-primary me-2"></i>
                         Jl. Raya Dukuhbenda, Kec. Bumijawa, Kab. Tegal, Jawa Tengah.
                     </p>
-                    
+
                     <div class="ratio ratio-16x9 rounded overflow-hidden shadow-sm">
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15835.454238713063!2d109.1352424!3d-7.1418725!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f962885994f8b%3A0xc3921e49463e6e8c!2sSD%20Negeri%20Dukuhbenda%2002!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" 
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15835.454238713063!2d109.1352424!3d-7.1418725!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f962885994f8b%3A0xc3921e49463e6e8c!2sSD%20Negeri%20Dukuhbenda%2002!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid"
                             style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                     </div>
 
@@ -159,6 +163,6 @@ include 'includes/header.php';
     </div>
 </section>
 
-<?php 
-include_once 'includes/footer.php'; 
+<?php
+include_once 'includes/footer.php';
 ?>

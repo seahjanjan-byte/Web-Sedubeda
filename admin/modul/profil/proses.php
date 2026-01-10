@@ -14,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $ext      = pathinfo($file_name, PATHINFO_EXTENSION);
             $new_name = "struktur_" . time() . "." . $ext;
 
-            // Hapus gambar lama
             $old = mysqli_query($koneksi, "SELECT gambar FROM profil WHERE jenis='struktur'");
             $row = mysqli_fetch_assoc($old);
             if (file_exists("../../../assets/img/" . $row['gambar'])) {
@@ -25,11 +24,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             mysqli_query($koneksi, "UPDATE profil SET gambar='$new_name' WHERE jenis='struktur'");
         }
     } else {
-        // Logika Update Teks Visi-Misi / Sejarah
-        $konten = mysqli_real_escape_string($koneksi, $_POST['konten']);
+        if ($jenis == 'visi_misi') {
+            // Bersihkan Visi
+            $visi_raw = $_POST['visi'] ?? [];
+            $visi_clean = array_values(array_filter($visi_raw, function($val) { return trim($val) !== ''; }));
+
+            // Bersihkan Misi
+            $misi_raw = $_POST['misi'] ?? [];
+            $misi_clean = array_values(array_filter($misi_raw, function($val) { return trim($val) !== ''; }));
+
+            $data_json = json_encode([
+                'visi' => $visi_clean,
+                'misi' => $misi_clean
+            ]);
+            $konten = mysqli_real_escape_string($koneksi, $data_json);
+        } else {
+            $konten = mysqli_real_escape_string($koneksi, $_POST['konten']);
+        }
+
         mysqli_query($koneksi, "UPDATE profil SET konten='$konten' WHERE jenis='$jenis'");
     }
 
     header("Location: index.php");
+    exit;
 }
 ?>
