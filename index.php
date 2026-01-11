@@ -2,7 +2,7 @@
 include 'includes/header.php';
 ?>
 
-<div id="heroSlider" class="carousel slide shadow-sm" data-bs-ride="carousel">
+<div id="heroSlider" class="carousel slide shadow-sm">
     <div class="carousel-inner">
         <?php
         $querySlider = mysqli_query($koneksi, "SELECT * FROM slider ORDER BY id_slider DESC");
@@ -14,11 +14,10 @@ include 'includes/header.php';
                     <div class="hero-overlay"></div>
                     <img src="<?= $base_url; ?>assets/img/slider/<?= $row['gambar']; ?>" class="d-block w-100 hero-img" alt="<?= $row['judul']; ?>">
 
-                    <div class="carousel-caption d-md-block text-start pb-5">
+                    <div class="carousel-caption d-block text-start pb-5">
                         <div class="container">
                             <h1 class="display-4 fw-bold mb-2 animate__animated animate__fadeInUp"><?= $row['judul']; ?></h1>
                             <p class="lead mb-4 animate__animated animate__fadeInUp animate__delay-1s"><?= $row['deskripsi']; ?></p>
-                            <a href="<?= $base_url; ?>pages/visi-misi.php" class="btn btn-primary btn-lg rounded-pill px-4 shadow animate__animated animate__fadeInUp animate__delay-2s">Jelajahi Profil</a>
                         </div>
                     </div>
                 </div>

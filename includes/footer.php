@@ -57,11 +57,23 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: true, });
+    AOS.init({ duration: 1000, once: true, });
 
-        function toggleVisitor() {
-            document.getElementById('visitor-box').classList.toggle('minimized');
-        }
-    </script>
+    // Inisialisasi Slider dengan fitur geser manual yang kuat
+    const myCarouselElement = document.querySelector('#heroSlider');
+    
+    if (myCarouselElement) {
+        const carousel = new bootstrap.Carousel(myCarouselElement, {
+            interval: 4000, // Kecepatan pindah 4 detik
+            ride: 'carousel', // Menjalankan otomatis sejak halaman dimuat
+            pause: false,     // Slider TIDAK AKAN berhenti saat disentuh/diklik
+            touch: true       // Mengaktifkan fitur geser manual di HP
+        });
+    }
+
+    function toggleVisitor() {
+        document.getElementById('visitor-box').classList.toggle('minimized');
+    }
+</script>
 </body>
 </html>

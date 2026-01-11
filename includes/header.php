@@ -8,7 +8,7 @@ include_once dirname(__DIR__) . '/config/config.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SD Negeri Dukuhbenda 02</title>
-    
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <link rel="stylesheet" href="<?= $base_url; ?>assets/css/style.css">
@@ -52,10 +52,12 @@ include_once dirname(__DIR__) . '/config/config.php';
 
                     <li class="nav-item"><a class="nav-link" href="<?= $base_url; ?>pages/guru.php">Guru & Staff</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?= $base_url; ?>pages/berita.php">Berita</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?= $base_url; ?>pages/ppdb.php">PPDB</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?= $base_url; ?>pages/galeri.php">Galeri</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?= $base_url; ?>pages/prestasi.php">Prestasi</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?= $base_url; ?>pages/fasilitas.php">Fasilitas</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-ppdb-glow" href="<?= $base_url; ?>pages/ppdb.php">PPDB</a>
+                    </li>
                 </ul>
             </div>
         </div>

@@ -6,7 +6,7 @@ $jml_pesan_baru = mysqli_num_rows($query_notif);
 ?>
 <div class="border-end" id="sidebar-wrapper" style="background-color: #1e3d59;">
     <div class="sidebar-heading border-bottom text-white py-4 px-3 fw-bold">
-        <i class="fas fa-school me-2"></i> SDN 02 ADMIN
+        <i class="fas fa-school me-2"></i> SEDUBEDA
     </div>
     <div class="list-group list-group-flush">
         <a class="list-group-item list-group-item-action py-3 text-white bg-transparent border-0" href="<?= $base_url; ?>admin/index.php">
