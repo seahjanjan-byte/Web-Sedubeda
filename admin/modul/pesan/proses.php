@@ -19,4 +19,9 @@ if ($aksi == 'hapus') {
     mysqli_query($koneksi, "DELETE FROM pesan WHERE id_pesan = '$id'");
 }
 
-header("Location: index.php");
+// AKSI BARU: Tandai Sudah Dibaca
+if ($aksi == 'baca') {
+    mysqli_query($koneksi, "UPDATE pesan SET status_baca = 1 WHERE id_pesan = '$id'");
+    header("Location: index.php");
+    exit;
+}
